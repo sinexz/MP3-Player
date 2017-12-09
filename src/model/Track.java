@@ -53,7 +53,7 @@ public class Track
     }
 
     public StringProperty getArtist() {
-        return artist;
+        return new SimpleStringProperty(id3v1Tag.getArtist());
     }
 
     public void setArtist(StringProperty artist) {
@@ -61,7 +61,7 @@ public class Track
     }
 
     public StringProperty getTitle() {
-        return title;
+        return new SimpleStringProperty(id3v1Tag.getTitle());
     }
 
     public void setTitle(StringProperty title) {
@@ -69,7 +69,7 @@ public class Track
     }
 
     public StringProperty getYear() {
-        return year;
+        return new SimpleStringProperty(id3v1Tag.getYear());
     }
 
     public void setYear(StringProperty year) {
