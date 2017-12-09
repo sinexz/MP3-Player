@@ -1,4 +1,4 @@
-package model;
+package mp3player.model;
 
 import com.mpatric.mp3agic.*;
 import javafx.beans.property.SimpleStringProperty;

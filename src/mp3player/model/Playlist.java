@@ -1,4 +1,4 @@
-package model;
+package mp3player.model;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

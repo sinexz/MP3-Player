@@ -1,4 +1,4 @@
-package util;
+package mp3player.util;
 
 public class TrackUtil {
 }

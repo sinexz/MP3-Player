@@ -1,4 +1,4 @@
-package model;
+package mp3player.model;
 
 import de.hsrm.mi.eibo.simpleplayer.SimpleAudioPlayer;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
@@ -10,20 +10,9 @@ public class Player
 
     private boolean statusPlaying = false;
 
-    public void play()
-    {
-        if(audioPlayer != null)
-        {
-            if(!playingStatus())
-            {
-                audioPlayer.play();
-            }
-            else
-                {
-                    audioPlayer.pause();
-                }
-        }
-    }
+    public void play() { audioPlayer.play(); }
+
+    public void pause() { audioPlayer.pause(); }
 
     public boolean playingStatus() { return audioPlayer.isPlaying(); }
 

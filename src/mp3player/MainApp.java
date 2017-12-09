@@ -1,13 +1,16 @@
-import view.*;
+package mp3player;
+
+import mp3player.view.*;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class MainApp extends Application {
 
     private  Stage primaryStage;
     //private PANE rootLayout;
+
+    public MainApp() {}
 
     public static void main(String[] args) {
         launch(args);
@@ -19,7 +22,7 @@ public class Main extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("MP3 - Player");
 
-        this.primaryStage.getIcons().add(new Image("file:src/view/img/logo.png"));
+        this.primaryStage.getIcons().add(new Image("file:src/mp3player.view/img/logo.png"));
 
         initRootLayoutView();
         initPlayerView();
@@ -30,9 +33,9 @@ public class Main extends Application {
         //Load root Layout
         RootLayoutView view = new RootLayoutView();
         /**
-         * ((PANE)) <-  Cast || view.load() lädt das ganze Pane um es anzuzeigen
+         * ((PANE)) <-  Cast || mp3player.view.load() lädt das ganze Pane um es anzuzeigen
          */
-        //rootLayout = ((PANE)) view.load();
+        //rootLayout = ((PANE)) mp3player.view.load();
 
         //Show scene with root layout
         /**
@@ -46,9 +49,9 @@ public class Main extends Application {
         //Load player Layout
         PlayerView view = new PlayerView();
         /**
-         * ((PANE)) <-  Cast || view.load() lädt das ganze Pane um es anzuzeigen
+         * ((PANE)) <-  Cast || mp3player.view.load() lädt das ganze Pane um es anzuzeigen
          */
-        //(PANE) playerOverview = ((PANE)) view.load();
+        //(PANE) playerOverview = ((PANE)) mp3player.view.load();
 
         //rootLayout.setCenter(playerOverview);
 
