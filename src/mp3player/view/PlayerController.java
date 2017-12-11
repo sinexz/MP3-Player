@@ -73,6 +73,7 @@ public class PlayerController
         observablePlaylistsView = PlayListUtil.getAll();
         playlistView.setItems(observablePlaylistsView);
 
+
         playlistView.setCellFactory((ListView<Playlist> p) ->
         {
             ListCell<Playlist> cell = new ListCell<Playlist>()
