@@ -13,6 +13,8 @@ import javafx.scene.text.Font;
 
 public abstract class Mp3Gui extends SplitPane {
 
+    //Muss noch umbenannt werden!
+
     protected final AnchorPane anchorPane;
     protected final HBox hBox;
     protected final HBox hBox0;
