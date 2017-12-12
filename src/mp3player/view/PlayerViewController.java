@@ -8,7 +8,7 @@ import mp3player.model.*;
 import mp3player.util.*;
 import javafx.scene.control.ListView;
 
-public class PlayerController
+public class PlayerViewController
 {
     /**
      * Alle benötigten Variablen und Objekte
@@ -20,14 +20,18 @@ public class PlayerController
     //Reference to main application
     private MainApp mainApp;
 
-    //Initialize player and current media
+    //Initialize playerModel and current media
     private Player player;
     private Track currentTrack;
     private Track prevTrack;
     private Track nextTrack;
     private Mp3File mp3File;
+    private Player playerModel;
 
-    public PlayerController() {}
+    public PlayerViewController(Player model)
+    {
+        this.playerModel = model;
+    }
 
     private void intitialize()
     {
@@ -52,7 +56,7 @@ public class PlayerController
             }
         }
     }
-
+/*
     private void handleNextTrack() { if (nextTrack != null) playTrack(nextTrack); }
 
     private void handlePrevTrack() { if (prevTrack != null) playTrack(prevTrack); }
@@ -90,4 +94,5 @@ public class PlayerController
             }
         });
     }
+*/
 }

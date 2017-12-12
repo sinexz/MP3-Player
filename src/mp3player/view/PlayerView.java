@@ -2,23 +2,24 @@ package mp3player.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import mp3player.model.Player;
 
-public class PlayerView extends SplitPane {
+public class PlayerView extends SplitPane
+{
 
     //Erstellung der benötigten Variable
 
+    protected final SplitPane view;
     protected final AnchorPane anchorPaneTop;
-    protected final HBox hBoxTop;
-    protected final HBox hBoxImg;
     protected final AnchorPane anchorPaneBot;
     protected final VBox VBoxBot;
     protected final VBox vBoxSong;
@@ -39,12 +40,19 @@ public class PlayerView extends SplitPane {
     protected final Button buttonShuffle;
     protected final HBox hBoxAudio;
     protected final Slider sliderAudio;
+    protected PlayerViewController playerViewController;
+    protected Player playerModel;
+    protected PlaylistView playlistView;
+    protected CoverView coverView;
+    protected Boolean playlistViewEnabled = false;
 
-    public PlayerView() {
-
+    public PlayerView(PlayerViewController playerViewController, Player playerModel) {
+        this.playerViewController = playerViewController;
+        this.playerModel = playerModel;
+        playlistView = new PlaylistView(playerViewController, playerModel);
+        coverView = new CoverView(playerViewController, playerModel);
+        view = new SplitPane();
         anchorPaneTop = new AnchorPane();
-        hBoxTop = new HBox();
-        hBoxImg = new HBox();
         anchorPaneBot = new AnchorPane();
         VBoxBot = new VBox();
         vBoxSong = new VBox();
@@ -67,14 +75,14 @@ public class PlayerView extends SplitPane {
         sliderAudio = new Slider();
 
         //SplitPane
-        setDividerPositions(0.6);
-        setPrefHeight(425.0);
-        setPrefWidth(500.0);
-        setMaxHeight(USE_PREF_SIZE);
-        setMaxWidth(USE_PREF_SIZE);
-        setMinHeight(USE_PREF_SIZE);
-        setMinWidth(USE_PREF_SIZE);
-        setOrientation(javafx.geometry.Orientation.VERTICAL);
+        view.setDividerPositions(0.6);
+        view.setPrefHeight(425.0);
+        view.setPrefWidth(500.0);
+        view.setMaxHeight(USE_PREF_SIZE);
+        view.setMaxWidth(USE_PREF_SIZE);
+        view.setMinHeight(USE_PREF_SIZE);
+        view.setMinWidth(USE_PREF_SIZE);
+        view.setOrientation(javafx.geometry.Orientation.VERTICAL);
 
         //SplitPane Oben - Bild
         anchorPaneTop.setPrefHeight(275.0);
@@ -83,23 +91,8 @@ public class PlayerView extends SplitPane {
         anchorPaneTop.setMaxWidth(USE_PREF_SIZE);
         anchorPaneTop.setMinHeight(USE_PREF_SIZE);
         anchorPaneTop.setMinWidth(USE_PREF_SIZE);
-
-        //Hbox als Parent, um HboxImg zu positionieren
-        hBoxTop.setPrefHeight(275.0);
-        hBoxTop.setPrefWidth(500.0);
-        hBoxTop.setAlignment(javafx.geometry.Pos.CENTER);
-        hBoxTop.setMaxHeight(USE_PREF_SIZE);
-        hBoxTop.setMaxWidth(USE_PREF_SIZE);
-        hBoxTop.setMinHeight(USE_PREF_SIZE);
-        hBoxTop.setMinWidth(USE_PREF_SIZE);
-
-        //HBox für das Bild
-        hBoxImg.setPrefHeight(175.0);
-        hBoxImg.setPrefWidth(175.0);
-        hBoxImg.setMaxHeight(USE_PREF_SIZE);
-        hBoxImg.setMaxWidth(USE_PREF_SIZE);
-        hBoxImg.setMinHeight(USE_PREF_SIZE);
-        hBoxImg.setMinWidth(USE_PREF_SIZE);
+        anchorPaneTop.setBackground(new Background(new BackgroundFill(Color
+                .rgb(17, 119, 255), CornerRadii.EMPTY, Insets.EMPTY)));
 
         //AnchorPane für den Unteren Splitbereich
         anchorPaneBot.setPrefHeight(150.0);
@@ -185,7 +178,7 @@ public class PlayerView extends SplitPane {
         labelTimeRight.setMinWidth(USE_PREF_SIZE);
         labelTimeRight.setText("100");
 
-        // Hbox für die 3Hboxen, die den Player steuern.
+        // Hbox für die 3 Hboxen, die den Player steuern.
         hBoxPlayerMenu.setPrefHeight(70.0);
         hBoxPlayerMenu.setPrefWidth(500.0);
         hBoxPlayerMenu.setMaxHeight(USE_PREF_SIZE);
@@ -212,6 +205,21 @@ public class PlayerView extends SplitPane {
         buttonPlaylist.setMnemonicParsing(false);
         buttonPlaylist.setText("Playlist");
         HBox.setMargin(buttonPlaylist, new Insets(0.0, 0.0, 0.0, 10.0));
+        buttonPlaylist.setOnAction(e ->
+        {
+            System.out.println("jude");
+            playlistViewEnabled = !playlistViewEnabled;
+            if(playlistViewEnabled == false)
+            {
+                anchorPaneTop.getChildren().remove(playlistView.splitPane);
+                anchorPaneTop.getChildren().addAll(coverView.anchorPaneTop);
+            }
+            else if (playlistViewEnabled == true)
+            {
+                anchorPaneTop.getChildren().remove(coverView.anchorPaneTop);
+                anchorPaneTop.getChildren().addAll(playlistView.splitPane);
+            }
+        });
 
         // Hbox für den Player unten + Buttons
         hBoxPlayer.setPrefHeight(80.0);
@@ -296,9 +304,9 @@ public class PlayerView extends SplitPane {
         sliderAudio.setMinWidth(USE_PREF_SIZE);
 
         //Alle "Kinder" hinzufügen
-        hBoxTop.getChildren().add(hBoxImg);
-        anchorPaneTop.getChildren().add(hBoxTop);
-        getItems().add(anchorPaneTop);
+
+        //Scene -
+        view.getItems().add(anchorPaneTop);
         vBoxSong.getChildren().add(labelSong);
         vBoxSong.getChildren().add(labelInterpret);
         VBoxBot.getChildren().add(vBoxSong);
@@ -318,7 +326,16 @@ public class PlayerView extends SplitPane {
         hBoxPlayerMenu.getChildren().add(hBoxAudio);
         VBoxBot.getChildren().add(hBoxPlayerMenu);
         anchorPaneBot.getChildren().add(VBoxBot);
-        getItems().add(anchorPaneBot);
+        view.getItems().add(anchorPaneBot);
+    }
 
+    public PlayerViewController getController()
+    {
+        return playerViewController;
+    }
+
+    public Parent asParent()
+    {
+        return view;
     }
 }

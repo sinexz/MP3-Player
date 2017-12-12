@@ -1,65 +1,66 @@
 package mp3player;
 
 import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
+import javafx.scene.layout.BorderPane;
 import mp3player.view.*;
+import mp3player.model.*;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
 
-    private  Stage primaryStage;
-    //private PANE rootLayout;
+    private Stage primaryStage;
+    private BorderPane rootLayout;
+    private PlayerViewController playerViewController;
+    private Player playerModel;
+    private PlayerView playerView;
 
     public MainApp() {}
 
     public static void main(String[] args) {
-        //launch(args);
-        Application.launch(RootLayoutView.class, args);
+        launch(args);
     }
 
     @Override
     public void start(Stage primaryStage)
     {
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("MP3 - Player");
+        playerModel = new Player();
+        playerViewController = new PlayerViewController(playerModel);
+        playerView = new PlayerView(playerViewController, playerModel);
 
-        this.primaryStage.getIcons().add(new Image("file:src/mp3player.view/img/logo.png"));
-
-        initRootLayoutView();
-        initPlayerView();
+        Scene scene = new Scene(playerView.asParent(), 520,440);
+        primaryStage.setTitle("MP3 - Player");
+        primaryStage.getIcons().add(new Image("file:src/mp3player.view/img/logo.png"));
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        //initRootLayoutView();
+        //initPlayerView();
     }
 
     public void initRootLayoutView()
     {
         //Load root Layout
         RootLayoutView view = new RootLayoutView();
-        /**
-         * ((PANE)) <-  Cast || mp3player.view.load() lädt das ganze Pane um es anzuzeigen
-         */
-        //rootLayout = ((PANE)) mp3player.view.load();
+        rootLayout = (BorderPane) view;
 
         //Show scene with root layout
-        /**
-         * Pane einstellen Zeile 11 &&
-         */
-        //Scene scene = new Scene(rootLayout);
-
+        Scene scene = new Scene(rootLayout);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public void initPlayerView()
     {
-        //Load player Layout
-        PlayerView view = new PlayerView();
-        /**
-         * ((PANE)) <-  Cast || mp3player.view.load() lädt das ganze Pane um es anzuzeigen
-         */
-        //(PANE) playerOverview = ((PANE)) mp3player.view.load();
+        //Load playerModel Layout
+        PlayerView view = new PlayerView(playerViewController,playerModel);
+        SplitPane playerOverview = (SplitPane) view;
 
-        //rootLayout.setCenter(playerOverview);
+        rootLayout.setCenter(playerOverview);
 
         //Give the controller acess to the main
-        //PlayerController controller = view.getController();
-        //controller.setMain(this);
+        PlayerViewController controller = view.getController();
+        controller.setMainApp(this);
     }
 }
