@@ -59,7 +59,7 @@ public class MainApp extends Application {
         //rootLayout.setCenter(playerOverview);
 
         //Give the controller acess to the main
-        PlayerController controller = view.getController();
-        controller.setMain(this);
+        //PlayerController controller = view.getController();
+        //controller.setMain(this);
     }
 }

@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public abstract class Mp3Gui extends SplitPane {
+public class Mp3Gui extends SplitPane {
 
     //Muss noch umbenannt werden!
 

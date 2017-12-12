@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public abstract class Mp3GuiDialog extends VBox {
+public class Mp3GuiDialog extends VBox {
 
     protected final HBox hBox;
     protected final TextField textField;
