@@ -1,5 +1,6 @@
 package mp3player;
 
+import javafx.scene.Scene;
 import mp3player.view.*;
 import javafx.application.Application;
 import javafx.scene.image.Image;
@@ -13,7 +14,8 @@ public class MainApp extends Application {
     public MainApp() {}
 
     public static void main(String[] args) {
-        launch(args);
+        //launch(args);
+        Application.launch(RootLayoutView.class, args);
     }
 
     @Override
@@ -42,6 +44,7 @@ public class MainApp extends Application {
          * Pane einstellen Zeile 11 &&
          */
         //Scene scene = new Scene(rootLayout);
+
     }
 
     public void initPlayerView()

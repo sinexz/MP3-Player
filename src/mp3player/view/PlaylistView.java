@@ -1,4 +1,4 @@
-﻿package mp3player.view;
+package mp3player.view;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -14,16 +14,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
-public abstract class Mp3GuiPlaylist extends SplitPane {
+public class PlaylistView extends SplitPane {
 
     protected final AnchorPane anchorPane;
     protected final SplitPane splitPane;
-    protected final VBox VBoxPlaylist;
+    protected final VBox vBox;
     protected final TableView tableView;
-    protected final TableColumn tableColumnPlaylists;
-    protected final HBox HBoxPlaylist;
-    protected final Label labelAddPlaylist;
-    protected final Button buttonAddPlaylist;
+    protected final TableColumn tableColumn;
+    protected final HBox hBox;
+    protected final Label label;
+    protected final Button button;
     protected final ImageView imageView;
     protected final HBox hBox0;
     protected final TableView tableView0;
@@ -43,24 +43,24 @@ public abstract class Mp3GuiPlaylist extends SplitPane {
     protected final HBox hBox3;
     protected final Button button0;
     protected final HBox hBox4;
-    protected final Button buttonRewind;
-    protected final Button buttonBack;
-    protected final Button buttonPlay;
-    protected final Button buttonNext;
-    protected final Button buttonShuffle;
-    protected final HBox HBoxAudioBox;
-    protected final Slider sliderAudio;
+    protected final Button button1;
+    protected final Button button2;
+    protected final Button button3;
+    protected final Button button4;
+    protected final Button button5;
+    protected final HBox hBox5;
+    protected final Slider slider;
 
-    public Mp3GuiPlaylist() {
+    public PlaylistView() {
 
         anchorPane = new AnchorPane();
         splitPane = new SplitPane();
-        VBoxPlaylist = new VBox();
+        vBox = new VBox();
         tableView = new TableView();
-        tableColumnPlaylists = new TableColumn();
-        HBoxPlaylist = new HBox();
-        labelAddPlaylist = new Label();
-        buttonAddPlaylist = new Button();
+        tableColumn = new TableColumn();
+        hBox = new HBox();
+        label = new Label();
+        button = new Button();
         imageView = new ImageView();
         hBox0 = new HBox();
         tableView0 = new TableView();
@@ -80,13 +80,13 @@ public abstract class Mp3GuiPlaylist extends SplitPane {
         hBox3 = new HBox();
         button0 = new Button();
         hBox4 = new HBox();
-        buttonRewind = new Button();
-        buttonBack = new Button();
-        buttonPlay = new Button();
-        buttonNext = new Button();
-        buttonShuffle = new Button();
-        HBoxAudioBox = new HBox();
-        sliderAudio = new Slider();
+        button1 = new Button();
+        button2 = new Button();
+        button3 = new Button();
+        button4 = new Button();
+        button5 = new Button();
+        hBox5 = new HBox();
+        slider = new Slider();
 
         setDividerPositions(0.6, 0.5);
         setMaxHeight(USE_PREF_SIZE);
@@ -112,12 +112,12 @@ public abstract class Mp3GuiPlaylist extends SplitPane {
         splitPane.setPrefHeight(275.0);
         splitPane.setPrefWidth(500.0);
 
-        VBoxPlaylist.setMaxHeight(USE_PREF_SIZE);
-        VBoxPlaylist.setMaxWidth(USE_PREF_SIZE);
-        VBoxPlaylist.setMinHeight(USE_PREF_SIZE);
-        VBoxPlaylist.setMinWidth(USE_PREF_SIZE);
-        VBoxPlaylist.setPrefHeight(275.0);
-        VBoxPlaylist.setPrefWidth(150.0);
+        vBox.setMaxHeight(USE_PREF_SIZE);
+        vBox.setMaxWidth(USE_PREF_SIZE);
+        vBox.setMinHeight(USE_PREF_SIZE);
+        vBox.setMinWidth(USE_PREF_SIZE);
+        vBox.setPrefHeight(275.0);
+        vBox.setPrefWidth(150.0);
 
         tableView.setMaxHeight(USE_PREF_SIZE);
         tableView.setMaxWidth(USE_PREF_SIZE);
@@ -126,42 +126,42 @@ public abstract class Mp3GuiPlaylist extends SplitPane {
         tableView.setPrefHeight(225.0);
         tableView.setPrefWidth(150.0);
 
-        tableColumnPlaylists.setPrefWidth(150.0);
-        tableColumnPlaylists.setText("Playlists");
+        tableColumn.setPrefWidth(150.0);
+        tableColumn.setText("Playlists");
 
-        HBoxPlaylist.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
-        HBoxPlaylist.setPrefHeight(100.0);
-        HBoxPlaylist.setPrefWidth(200.0);
+        hBox.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+        hBox.setPrefHeight(100.0);
+        hBox.setPrefWidth(200.0);
 
-        labelAddPlaylist.setAlignment(javafx.geometry.Pos.TOP_LEFT);
-        labelAddPlaylist.setMaxHeight(USE_PREF_SIZE);
-        labelAddPlaylist.setMaxWidth(USE_PREF_SIZE);
-        labelAddPlaylist.setMinHeight(USE_PREF_SIZE);
-        labelAddPlaylist.setMinWidth(USE_PREF_SIZE);
-        labelAddPlaylist.setPrefWidth(80.0);
-        labelAddPlaylist.setText("Hinzuf�gen");
-        labelAddPlaylist.setFont(new Font(13.0));
-        labelAddPlaylist.setPadding(new Insets(0.0, 0.0, 0.0, 5.0));
+        label.setAlignment(javafx.geometry.Pos.TOP_LEFT);
+        label.setMaxHeight(USE_PREF_SIZE);
+        label.setMaxWidth(USE_PREF_SIZE);
+        label.setMinHeight(USE_PREF_SIZE);
+        label.setMinWidth(USE_PREF_SIZE);
+        label.setPrefWidth(80.0);
+        label.setText("Hinzuf�gen");
+        label.setFont(new Font(13.0));
+        label.setPadding(new Insets(0.0, 0.0, 0.0, 5.0));
 
-        buttonAddPlaylist.setAlignment(javafx.geometry.Pos.CENTER_RIGHT);
-        buttonAddPlaylist.setContentDisplay(javafx.scene.control.ContentDisplay.RIGHT);
-        buttonAddPlaylist.setMaxHeight(USE_PREF_SIZE);
-        buttonAddPlaylist.setMaxWidth(USE_PREF_SIZE);
-        buttonAddPlaylist.setMinHeight(USE_PREF_SIZE);
-        buttonAddPlaylist.setMinWidth(USE_PREF_SIZE);
-        buttonAddPlaylist.setMnemonicParsing(false);
-        buttonAddPlaylist.setPrefHeight(25.0);
-        buttonAddPlaylist.setPrefWidth(40.0);
-        buttonAddPlaylist.setText("+");
-        buttonAddPlaylist.setFont(new Font(14.0));
+        button.setAlignment(javafx.geometry.Pos.CENTER_RIGHT);
+        button.setContentDisplay(javafx.scene.control.ContentDisplay.RIGHT);
+        button.setMaxHeight(USE_PREF_SIZE);
+        button.setMaxWidth(USE_PREF_SIZE);
+        button.setMinHeight(USE_PREF_SIZE);
+        button.setMinWidth(USE_PREF_SIZE);
+        button.setMnemonicParsing(false);
+        button.setPrefHeight(25.0);
+        button.setPrefWidth(40.0);
+        button.setText("+");
+        button.setFont(new Font(14.0));
 
         imageView.setFitHeight(25.0);
         imageView.setFitWidth(45.0);
         imageView.setNodeOrientation(javafx.geometry.NodeOrientation.INHERIT);
         imageView.setPickOnBounds(true);
         imageView.setPreserveRatio(true);
-        buttonAddPlaylist.setGraphic(imageView);
-        buttonAddPlaylist.setPadding(new Insets(0.0, 0.0, 0.0, 10.0));
+        button.setGraphic(imageView);
+        button.setPadding(new Insets(0.0, 0.0, 0.0, 10.0));
 
         hBox0.setAlignment(javafx.geometry.Pos.CENTER);
         hBox0.setMaxHeight(USE_PREF_SIZE);
@@ -298,78 +298,78 @@ public abstract class Mp3GuiPlaylist extends SplitPane {
         hBox4.setPrefWidth(300.0);
         hBox4.setSpacing(10.0);
 
-        buttonRewind.setMaxHeight(USE_PREF_SIZE);
-        buttonRewind.setMaxWidth(USE_PREF_SIZE);
-        buttonRewind.setMinHeight(USE_PREF_SIZE);
-        buttonRewind.setMinWidth(USE_PREF_SIZE);
-        buttonRewind.setMnemonicParsing(false);
-        buttonRewind.setPrefHeight(25.0);
-        buttonRewind.setPrefWidth(50.0);
-        buttonRewind.setText("Rewind");
-        buttonRewind.setFont(new Font(10.0));
+        button1.setMaxHeight(USE_PREF_SIZE);
+        button1.setMaxWidth(USE_PREF_SIZE);
+        button1.setMinHeight(USE_PREF_SIZE);
+        button1.setMinWidth(USE_PREF_SIZE);
+        button1.setMnemonicParsing(false);
+        button1.setPrefHeight(25.0);
+        button1.setPrefWidth(50.0);
+        button1.setText("Rewind");
+        button1.setFont(new Font(10.0));
 
-        buttonBack.setMaxHeight(USE_PREF_SIZE);
-        buttonBack.setMaxWidth(USE_PREF_SIZE);
-        buttonBack.setMinHeight(USE_PREF_SIZE);
-        buttonBack.setMinWidth(USE_PREF_SIZE);
-        buttonBack.setMnemonicParsing(false);
-        buttonBack.setPrefHeight(25.0);
-        buttonBack.setPrefWidth(50.0);
-        buttonBack.setText("Back");
-        buttonBack.setFont(new Font(10.0));
+        button2.setMaxHeight(USE_PREF_SIZE);
+        button2.setMaxWidth(USE_PREF_SIZE);
+        button2.setMinHeight(USE_PREF_SIZE);
+        button2.setMinWidth(USE_PREF_SIZE);
+        button2.setMnemonicParsing(false);
+        button2.setPrefHeight(25.0);
+        button2.setPrefWidth(50.0);
+        button2.setText("Back");
+        button2.setFont(new Font(10.0));
 
-        buttonPlay.setMaxHeight(USE_PREF_SIZE);
-        buttonPlay.setMaxWidth(USE_PREF_SIZE);
-        buttonPlay.setMinHeight(USE_PREF_SIZE);
-        buttonPlay.setMinWidth(USE_PREF_SIZE);
-        buttonPlay.setMnemonicParsing(false);
-        buttonPlay.setPrefHeight(45.0);
-        buttonPlay.setPrefWidth(50.0);
-        buttonPlay.setText("Play");
-        buttonPlay.setFont(new Font(10.0));
+        button3.setMaxHeight(USE_PREF_SIZE);
+        button3.setMaxWidth(USE_PREF_SIZE);
+        button3.setMinHeight(USE_PREF_SIZE);
+        button3.setMinWidth(USE_PREF_SIZE);
+        button3.setMnemonicParsing(false);
+        button3.setPrefHeight(45.0);
+        button3.setPrefWidth(50.0);
+        button3.setText("Play");
+        button3.setFont(new Font(10.0));
 
-        buttonNext.setMaxHeight(USE_PREF_SIZE);
-        buttonNext.setMaxWidth(USE_PREF_SIZE);
-        buttonNext.setMinHeight(USE_PREF_SIZE);
-        buttonNext.setMinWidth(USE_PREF_SIZE);
-        buttonNext.setMnemonicParsing(false);
-        buttonNext.setPrefHeight(25.0);
-        buttonNext.setPrefWidth(50.0);
-        buttonNext.setText("Next");
-        buttonNext.setFont(new Font(10.0));
+        button4.setMaxHeight(USE_PREF_SIZE);
+        button4.setMaxWidth(USE_PREF_SIZE);
+        button4.setMinHeight(USE_PREF_SIZE);
+        button4.setMinWidth(USE_PREF_SIZE);
+        button4.setMnemonicParsing(false);
+        button4.setPrefHeight(25.0);
+        button4.setPrefWidth(50.0);
+        button4.setText("Next");
+        button4.setFont(new Font(10.0));
 
-        buttonShuffle.setMaxHeight(USE_PREF_SIZE);
-        buttonShuffle.setMaxWidth(USE_PREF_SIZE);
-        buttonShuffle.setMinHeight(USE_PREF_SIZE);
-        buttonShuffle.setMinWidth(USE_PREF_SIZE);
-        buttonShuffle.setMnemonicParsing(false);
-        buttonShuffle.setPrefHeight(25.0);
-        buttonShuffle.setPrefWidth(50.0);
-        buttonShuffle.setText("Shuffle");
-        buttonShuffle.setFont(new Font(10.0));
+        button5.setMaxHeight(USE_PREF_SIZE);
+        button5.setMaxWidth(USE_PREF_SIZE);
+        button5.setMinHeight(USE_PREF_SIZE);
+        button5.setMinWidth(USE_PREF_SIZE);
+        button5.setMnemonicParsing(false);
+        button5.setPrefHeight(25.0);
+        button5.setPrefWidth(50.0);
+        button5.setText("Shuffle");
+        button5.setFont(new Font(10.0));
         HBox.setMargin(hBox4, new Insets(0.0));
 
-        HBoxAudioBox.setAlignment(javafx.geometry.Pos.CENTER_RIGHT);
-        HBoxAudioBox.setMaxHeight(USE_PREF_SIZE);
-        HBoxAudioBox.setMaxWidth(USE_PREF_SIZE);
-        HBoxAudioBox.setMinHeight(USE_PREF_SIZE);
-        HBoxAudioBox.setMinWidth(USE_PREF_SIZE);
-        HBoxAudioBox.setPrefHeight(80.0);
-        HBoxAudioBox.setPrefWidth(100.0);
+        hBox5.setAlignment(javafx.geometry.Pos.CENTER_RIGHT);
+        hBox5.setMaxHeight(USE_PREF_SIZE);
+        hBox5.setMaxWidth(USE_PREF_SIZE);
+        hBox5.setMinHeight(USE_PREF_SIZE);
+        hBox5.setMinWidth(USE_PREF_SIZE);
+        hBox5.setPrefHeight(80.0);
+        hBox5.setPrefWidth(100.0);
 
-        sliderAudio.setMaxHeight(USE_PREF_SIZE);
-        sliderAudio.setMaxWidth(USE_PREF_SIZE);
-        sliderAudio.setMinHeight(USE_PREF_SIZE);
-        sliderAudio.setMinWidth(USE_PREF_SIZE);
-        sliderAudio.setPrefHeight(20.0);
-        sliderAudio.setPrefWidth(80.0);
+        slider.setMaxHeight(USE_PREF_SIZE);
+        slider.setMaxWidth(USE_PREF_SIZE);
+        slider.setMinHeight(USE_PREF_SIZE);
+        slider.setMinWidth(USE_PREF_SIZE);
+        slider.setPrefHeight(20.0);
+        slider.setPrefWidth(80.0);
 
-        tableView.getColumns().add(tableColumnPlaylists);
-        VBoxPlaylist.getChildren().add(tableView);
-        HBoxPlaylist.getChildren().add(labelAddPlaylist);
-        HBoxPlaylist.getChildren().add(buttonAddPlaylist);
-        VBoxPlaylist.getChildren().add(HBoxPlaylist);
-        splitPane.getItems().add(VBoxPlaylist);
+        tableView.getColumns().add(tableColumn);
+        vBox.getChildren().add(tableView);
+        hBox.getChildren().add(label);
+        hBox.getChildren().add(button);
+        vBox.getChildren().add(hBox);
+        splitPane.getItems().add(vBox);
         tableView0.getColumns().add(tableColumn0);
         tableView0.getColumns().add(tableColumn1);
         tableView0.getColumns().add(tableColumn2);
@@ -387,14 +387,14 @@ public abstract class Mp3GuiPlaylist extends SplitPane {
         vBox0.getChildren().add(hBox1);
         hBox3.getChildren().add(button0);
         hBox2.getChildren().add(hBox3);
-        hBox4.getChildren().add(buttonRewind);
-        hBox4.getChildren().add(buttonBack);
-        hBox4.getChildren().add(buttonPlay);
-        hBox4.getChildren().add(buttonNext);
-        hBox4.getChildren().add(buttonShuffle);
+        hBox4.getChildren().add(button1);
+        hBox4.getChildren().add(button2);
+        hBox4.getChildren().add(button3);
+        hBox4.getChildren().add(button4);
+        hBox4.getChildren().add(button5);
         hBox2.getChildren().add(hBox4);
-        HBoxAudioBox.getChildren().add(sliderAudio);
-        hBox2.getChildren().add(HBoxAudioBox);
+        hBox5.getChildren().add(slider);
+        hBox2.getChildren().add(hBox5);
         vBox0.getChildren().add(hBox2);
         getItems().add(vBox0);
 

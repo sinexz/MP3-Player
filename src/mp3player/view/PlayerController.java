@@ -55,7 +55,7 @@ public class PlayerController
 
     private void handleNextTrack() { if (nextTrack != null) playTrack(nextTrack); }
 
-    private void handlePrevTrack() { if (prevTrack != null) plyTrack(prevTrack); }
+    private void handlePrevTrack() { if (prevTrack != null) playTrack(prevTrack); }
 
     private void handleNewPlaylist()
     {
