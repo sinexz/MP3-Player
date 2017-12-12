@@ -1,6 +1,7 @@
 package mp3player.view;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -119,7 +120,7 @@ public class PlayerView extends SplitPane {
         // Die Vbox für die Labels, songname und interpret
         vBoxSong.setPrefHeight(50.0);
         vBoxSong.setPrefWidth(500.0);
-        vBoxSong.setAlignment(javafx.geometry.Pos.CENTER);
+        vBoxSong.setAlignment(Pos.CENTER);
         vBoxSong.setMaxHeight(USE_PREF_SIZE);
         vBoxSong.setMaxWidth(USE_PREF_SIZE);
         vBoxSong.setMinHeight(USE_PREF_SIZE);
@@ -133,7 +134,7 @@ public class PlayerView extends SplitPane {
         labelSong.setMinHeight(USE_PREF_SIZE);
         labelSong.setMinWidth(USE_PREF_SIZE);
         labelSong.setText("Titel der Playlist");
-        labelSong.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        labelSong.setAlignment(Pos.CENTER);
         labelSong.setFont(new Font(18.0));
 
         //Label für den Interpreten
@@ -144,7 +145,7 @@ public class PlayerView extends SplitPane {
         labelInterpret.setMinHeight(USE_PREF_SIZE);
         labelInterpret.setMinWidth(USE_PREF_SIZE);
         labelInterpret.setText("Interpet");
-        labelInterpret.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
+        labelInterpret.setAlignment(Pos.CENTER);
         labelInterpret.setFont(new Font(18.0));
 
         //die Hbox für die Zeitleiste

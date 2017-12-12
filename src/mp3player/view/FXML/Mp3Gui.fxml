@@ -28,12 +28,12 @@
                <children>
                   <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="500.0">
                      <children>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="200.0" text="Titel der Playlist" textAlignment="CENTER">
+                        <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="200.0" text="Titel der Playlist" textAlignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Label>
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="200.0" text="Interpet" textAlignment="CENTER">
+                        <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="200.0" text="Interpet" textAlignment="CENTER">
                            <font>
                               <Font size="18.0" />
                            </font>

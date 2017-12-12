@@ -28,8 +28,8 @@ public class RootLayoutView extends Application
     @Override
     public void start(Stage stage){
         BorderPane rootPane1 = new BorderPane();
-        rootPane1.setPrefSize(425,500);
-        Scene sceneRoot = new Scene(rootPane1,425,500);
+        rootPane1.setPrefSize(520,440);
+        Scene sceneRoot = new Scene(rootPane1,520,440);
         stage.setScene(sceneRoot);
         stage.show();
     }
