@@ -22,7 +22,7 @@ import java.util.List;
 
 public class PlayListUtil
 {
-
+/*
     public static final List<String> SUPPORTET_FILE_EXTENTIONS = Arrays.asList(".mp3");
 
     public static ObservableList<Track> getAll(Playlist playlist, TableView tracktable)
@@ -107,4 +107,5 @@ public class PlayListUtil
         }
 
     }
+    */
 }
