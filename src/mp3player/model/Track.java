@@ -16,7 +16,7 @@ public class Track
     private StringProperty title;
     private StringProperty year;
     private Image image;
-    private ID3v1 id3v1Tag;
+    private ID3v2 id3v2Tag;
 
     public Track() { this(null, null, null); }
 
@@ -25,7 +25,7 @@ public class Track
         this.fileName = new SimpleStringProperty(fileName);
         this.path = new SimpleStringProperty(filePath);
         this.mp3File = mp3File;
-        id3v1Tag = mp3File.getId3v1Tag();
+        id3v2Tag = mp3File.getId3v2Tag();
     }
 
     public StringProperty getFileName() { return fileName; }
@@ -45,7 +45,7 @@ public class Track
     }
 
     public StringProperty getAlbum() {
-        return new SimpleStringProperty(id3v1Tag.getAlbum());
+        return new SimpleStringProperty(id3v2Tag.getAlbum());
     }
 
     public void setAlbum(StringProperty album) {
@@ -53,7 +53,7 @@ public class Track
     }
 
     public StringProperty getArtist() {
-        return new SimpleStringProperty(id3v1Tag.getArtist());
+        return new SimpleStringProperty(id3v2Tag.getArtist());
     }
 
     public void setArtist(StringProperty artist) {
@@ -61,7 +61,7 @@ public class Track
     }
 
     public StringProperty getTitle() {
-        return new SimpleStringProperty(id3v1Tag.getTitle());
+        return new SimpleStringProperty(id3v2Tag.getTitle());
     }
 
     public void setTitle(StringProperty title) {
@@ -69,7 +69,7 @@ public class Track
     }
 
     public StringProperty getYear() {
-        return new SimpleStringProperty(id3v1Tag.getYear());
+        return new SimpleStringProperty(id3v2Tag.getYear());
     }
 
     public void setYear(StringProperty year) {
@@ -83,7 +83,4 @@ public class Track
     public void setImage(Image image) {
         this.image = image;
     }
-
-
-
 }
