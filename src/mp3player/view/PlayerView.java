@@ -3,11 +3,9 @@ package mp3player.view;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Slider;
-import javafx.scene.control.SplitPane;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -39,12 +37,17 @@ public class PlayerView extends SplitPane
     protected final Button buttonNext;
     protected final Button buttonShuffle;
     protected final HBox hBoxAudio;
+    protected final Button buttonSound;
     protected final Slider sliderAudio;
     protected PlayerViewController playerViewController;
     protected Player playerModel;
     protected PlaylistView playlistView;
     protected CoverView coverView;
     protected Boolean playlistViewEnabled = false;
+    protected Boolean soundMuted = false;
+    protected Boolean songPaused = false;
+    protected Boolean shuffleActivated = false;
+    protected Boolean repeatActivated = false;
 
     public PlayerView(PlayerViewController playerViewController, Player playerModel) {
         this.playerViewController = playerViewController;
@@ -72,12 +75,13 @@ public class PlayerView extends SplitPane
         buttonNext = new Button();
         buttonShuffle = new Button();
         hBoxAudio = new HBox();
+        buttonSound = new Button();
         sliderAudio = new Slider();
 
         //SplitPane
         view.setDividerPositions(0.6);
         view.setPrefHeight(425.0);
-        view.setPrefWidth(500.0);
+        view.setPrefWidth(480.0);
         view.setMaxHeight(USE_PREF_SIZE);
         view.setMaxWidth(USE_PREF_SIZE);
         view.setMinHeight(USE_PREF_SIZE);
@@ -85,8 +89,8 @@ public class PlayerView extends SplitPane
         view.setOrientation(javafx.geometry.Orientation.VERTICAL);
 
         //SplitPane Oben - Bild
-        anchorPaneTop.setPrefHeight(275.0);
-        anchorPaneTop.setPrefWidth(500.0);
+        anchorPaneTop.setPrefHeight(255.0);
+        anchorPaneTop.setPrefWidth(255.0);
         anchorPaneTop.setMaxHeight(USE_PREF_SIZE);
         anchorPaneTop.setMaxWidth(USE_PREF_SIZE);
         anchorPaneTop.setMinHeight(USE_PREF_SIZE);
@@ -95,16 +99,16 @@ public class PlayerView extends SplitPane
                 .rgb(17, 119, 255), CornerRadii.EMPTY, Insets.EMPTY)));
 
         //AnchorPane für den Unteren Splitbereich
-        anchorPaneBot.setPrefHeight(150.0);
-        anchorPaneBot.setPrefWidth(500.0);
+        anchorPaneBot.setPrefHeight(135.0);
+        anchorPaneBot.setPrefWidth(480.0);
         anchorPaneBot.setMaxHeight(USE_PREF_SIZE);
         anchorPaneBot.setMaxWidth(USE_PREF_SIZE);
         anchorPaneBot.setMinHeight(USE_PREF_SIZE);
         anchorPaneBot.setMinWidth(USE_PREF_SIZE);
 
         //Vbox für den Player-Controller
-        VBoxBot.setPrefHeight(150.0);
-        VBoxBot.setPrefWidth(500.0);
+        VBoxBot.setPrefHeight(100.0);
+        VBoxBot.setPrefWidth(480.0);
         VBoxBot.setMaxHeight(USE_PREF_SIZE);
         VBoxBot.setMaxWidth(USE_PREF_SIZE);
         VBoxBot.setMinHeight(USE_PREF_SIZE);
@@ -112,7 +116,7 @@ public class PlayerView extends SplitPane
 
         // Die Vbox für die Labels, songname und interpret
         vBoxSong.setPrefHeight(50.0);
-        vBoxSong.setPrefWidth(500.0);
+        vBoxSong.setPrefWidth(480.0);
         vBoxSong.setAlignment(Pos.CENTER);
         vBoxSong.setMaxHeight(USE_PREF_SIZE);
         vBoxSong.setMaxWidth(USE_PREF_SIZE);
@@ -142,53 +146,58 @@ public class PlayerView extends SplitPane
         labelInterpret.setFont(new Font(18.0));
 
         //die Hbox für die Zeitleiste
-        hBoxTimeBar.setPrefHeight(40.0);
-        hBoxTimeBar.setPrefWidth(500.0);
-        hBoxTimeBar.setAlignment(javafx.geometry.Pos.CENTER);
+        hBoxTimeBar.setPrefHeight(20.0);
+        hBoxTimeBar.setPrefWidth(480.0);
+        hBoxTimeBar.setAlignment(Pos.BOTTOM_CENTER);
         hBoxTimeBar.setMaxHeight(USE_PREF_SIZE);
         hBoxTimeBar.setMaxWidth(USE_PREF_SIZE);
         hBoxTimeBar.setMinHeight(USE_PREF_SIZE);
         hBoxTimeBar.setMinWidth(USE_PREF_SIZE);
 
         //Label für den Anfang des Songs
-        labelTimeLeft.setPrefHeight(20.0);
-        labelTimeLeft.setPrefWidth(20.0);
+        labelTimeLeft.setPrefHeight(14.0);
+        labelTimeLeft.setPrefWidth(30.0);
+        labelTimeLeft.setAlignment(Pos.CENTER_RIGHT);
         labelTimeLeft.setMaxHeight(USE_PREF_SIZE);
         labelTimeLeft.setMaxWidth(USE_PREF_SIZE);
         labelTimeLeft.setMinHeight(USE_PREF_SIZE);
         labelTimeLeft.setMinWidth(USE_PREF_SIZE);
-        labelTimeLeft.setText("0");
+        labelTimeLeft.setText("00:00");
+        HBox.setMargin(labelTimeLeft, new Insets(10.0, 5.0, 0.0, 0.0));
 
         //Zeitleiste
-        progressBar.setPrefHeight(20.0);
-        progressBar.setPrefWidth(200.0);
+        progressBar.setPrefHeight(10.0);
+        progressBar.setPrefWidth(370.0);
         progressBar.setMaxHeight(USE_PREF_SIZE);
         progressBar.setMaxWidth(USE_PREF_SIZE);
         progressBar.setMinHeight(USE_PREF_SIZE);
         progressBar.setMinWidth(USE_PREF_SIZE);
         progressBar.setProgress(0.0);
-        HBox.setMargin(progressBar, new Insets(0.0, 10.0, 0.0, 10.0));
+        HBox.setMargin(progressBar, new Insets(20.0, 0.0, 0.0, 0.0));
 
         //Label für die restliche Zeit
-        labelTimeRight.setPrefHeight(20.0);
-        labelTimeRight.setPrefWidth(20.0);
+        labelTimeRight.setPrefHeight(14.0);
+        labelTimeRight.setPrefWidth(30.0);
         labelTimeRight.setMaxHeight(USE_PREF_SIZE);
         labelTimeRight.setMaxWidth(USE_PREF_SIZE);
         labelTimeRight.setMinHeight(USE_PREF_SIZE);
         labelTimeRight.setMinWidth(USE_PREF_SIZE);
-        labelTimeRight.setText("100");
+        labelTimeRight.setText("00:00");
+        HBox.setMargin(labelTimeRight, new Insets(10.0, 0.0, 0.0, 5.0));
 
         // Hbox für die 3 Hboxen, die den Player steuern.
-        hBoxPlayerMenu.setPrefHeight(70.0);
-        hBoxPlayerMenu.setPrefWidth(500.0);
+        hBoxPlayerMenu.setPrefHeight(40.0);
+        hBoxPlayerMenu.setPrefWidth(480.0);
+        hBoxPlayerMenu.setAlignment(Pos.TOP_CENTER);
         hBoxPlayerMenu.setMaxHeight(USE_PREF_SIZE);
         hBoxPlayerMenu.setMaxWidth(USE_PREF_SIZE);
         hBoxPlayerMenu.setMinHeight(USE_PREF_SIZE);
         hBoxPlayerMenu.setMinWidth(USE_PREF_SIZE);
 
+
         //Die Hbox für den Playlistbutton
-        hBoxPlaylist.setPrefHeight(80.0);
-        hBoxPlaylist.setPrefWidth(100.0);
+        hBoxPlaylist.setPrefHeight(50.0);
+        hBoxPlaylist.setPrefWidth(50.0);
         hBoxPlaylist.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
         hBoxPlaylist.setMaxHeight(USE_PREF_SIZE);
         hBoxPlaylist.setMaxWidth(USE_PREF_SIZE);
@@ -196,15 +205,19 @@ public class PlayerView extends SplitPane
         hBoxPlaylist.setMinWidth(USE_PREF_SIZE);
 
         //Knopf für das Wechseln auf die Playlist
-        buttonPlaylist.setPrefHeight(30.0);
-        buttonPlaylist.setPrefWidth(80.0);
+        buttonPlaylist.setPrefHeight(55.0);
+        buttonPlaylist.setPrefWidth(55.0);
         buttonPlaylist.setMaxHeight(USE_PREF_SIZE);
         buttonPlaylist.setMaxWidth(USE_PREF_SIZE);
         buttonPlaylist.setMinHeight(USE_PREF_SIZE);
         buttonPlaylist.setMinWidth(USE_PREF_SIZE);
         buttonPlaylist.setMnemonicParsing(false);
-        buttonPlaylist.setText("Playlist");
+        //buttonPlaylist.setText("Playlist");
         HBox.setMargin(buttonPlaylist, new Insets(0.0, 0.0, 0.0, 10.0));
+        buttonPlaylist.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/playlistButton.png",
+                buttonPlaylist.getPrefWidth(),buttonPlaylist.getPrefHeight(),true,true)));
+        buttonPlaylist.setContentDisplay(ContentDisplay.CENTER);
+        buttonPlaylist.setStyle("-fx-background-color: transparent;");
         buttonPlaylist.setOnAction(e ->
         {
             System.out.println("jude");
@@ -222,8 +235,8 @@ public class PlayerView extends SplitPane
         });
 
         // Hbox für den Player unten + Buttons
-        hBoxPlayer.setPrefHeight(80.0);
-        hBoxPlayer.setPrefWidth(300.0);
+        hBoxPlayer.setPrefHeight(50.0);
+        hBoxPlayer.setPrefWidth(370.0);
         hBoxPlayer.setSpacing(10.0);
         hBoxPlayer.setAlignment(javafx.geometry.Pos.CENTER);
         hBoxPlayer.setMaxHeight(USE_PREF_SIZE);
@@ -232,69 +245,175 @@ public class PlayerView extends SplitPane
         hBoxPlayer.setMinWidth(USE_PREF_SIZE);
 
         // Knopf für "Wiederholen"
-        buttonRewind.setPrefHeight(25.0);
-        buttonRewind.setPrefWidth(50.0);
-        buttonRewind.setText("Rewind");
+        buttonRewind.setPrefHeight(30.0);
+        buttonRewind.setPrefWidth(30.0);
+        //buttonRewind.setText("Rewind");
         buttonRewind.setFont(new Font(10.0));
         buttonRewind.setMaxHeight(USE_PREF_SIZE);
         buttonRewind.setMaxWidth(USE_PREF_SIZE);
         buttonRewind.setMinHeight(USE_PREF_SIZE);
         buttonRewind.setMinWidth(USE_PREF_SIZE);
         buttonRewind.setMnemonicParsing(false);
+        buttonRewind.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/repeatButton.png",
+                buttonRewind.getPrefWidth(),buttonRewind.getPrefHeight(),true,true)));
+        buttonRewind.setContentDisplay(ContentDisplay.CENTER);
+        buttonRewind.setStyle("-fx-background-color: transparent;");
+        buttonRewind.setOnAction(e ->
+        {
+            System.out.println("repeat");
+            repeatActivated = !repeatActivated;
+            if(repeatActivated == false)
+            {
+                buttonRewind.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/repeatButton.png",
+                        buttonRewind.getPrefWidth(),buttonRewind.getPrefHeight(),true,true)));
+                buttonRewind.setContentDisplay(ContentDisplay.CENTER);
+                buttonRewind.setStyle("-fx-background-color: transparent;");
+            }
+            else if (repeatActivated == true)
+            {
+                buttonRewind.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/repeatButtonPressed.png",
+                        buttonRewind.getPrefWidth(),buttonRewind.getPrefHeight(),true,true)));
+                buttonRewind.setContentDisplay(ContentDisplay.CENTER);
+                buttonRewind.setStyle("-fx-background-color: transparent;");
+            }
+        });
 
-        buttonBack.setPrefHeight(25.0);
-        buttonBack.setPrefWidth(50.0);
-        buttonBack.setText("Back");
+        buttonBack.setPrefHeight(30.0);
+        buttonBack.setPrefWidth(30.0);
+        //buttonBack.setText("Back");
         buttonBack.setFont(new Font(10.0));
         buttonBack.setMaxHeight(USE_PREF_SIZE);
         buttonBack.setMaxWidth(USE_PREF_SIZE);
         buttonBack.setMinHeight(USE_PREF_SIZE);
         buttonBack.setMinWidth(USE_PREF_SIZE);
         buttonBack.setMnemonicParsing(false);
+        buttonBack.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/rewindButton.png",
+                buttonBack.getPrefWidth(),buttonBack.getPrefHeight(),true,true)));
+        buttonBack.setContentDisplay(ContentDisplay.CENTER);
+        buttonBack.setStyle("-fx-background-color: transparent;");
 
         //Knopf für spielen/pause
-        buttonPlay.setPrefHeight(45.0);
-        buttonPlay.setPrefWidth(50.0);
-        buttonPlay.setText("Play");
+        buttonPlay.setPrefHeight(35.0);
+        buttonPlay.setPrefWidth(35.0);
+        //buttonPlay.setText("Play");
         buttonPlay.setFont(new Font(10.0));
         buttonPlay.setMaxHeight(USE_PREF_SIZE);
         buttonPlay.setMaxWidth(USE_PREF_SIZE);
         buttonPlay.setMinHeight(USE_PREF_SIZE);
         buttonPlay.setMinWidth(USE_PREF_SIZE);
-        buttonPlay.setMnemonicParsing(false);
+        buttonPlay.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/playButton.png",
+                buttonPlay.getPrefWidth(),buttonPlay.getPrefHeight(),true,true)));
+        buttonPlay.setContentDisplay(ContentDisplay.CENTER);
+        buttonPlay.setStyle("-fx-background-color: transparent;");
+        buttonPlay.setOnAction(e ->
+        {
+            System.out.println("play");
+            songPaused = !songPaused;
+            if(songPaused == false)
+            {
+                buttonPlay.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/playButton.png",
+                        buttonPlay.getPrefWidth(),buttonPlay.getPrefHeight(),true,true)));
+                buttonPlay.setContentDisplay(ContentDisplay.CENTER);
+                buttonPlay.setStyle("-fx-background-color: transparent;");
+            }
+            else if (songPaused == true)
+            {
+                buttonPlay.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/pauseButton.png",
+                        buttonPlay.getPrefWidth(),buttonPlay.getPrefHeight(),true,true)));
+                buttonPlay.setContentDisplay(ContentDisplay.CENTER);
+                buttonPlay.setStyle("-fx-background-color: transparent;");
+            }
+        });
 
         //Knopf für nächstes Lied
-        buttonNext.setPrefHeight(25.0);
-        buttonNext.setPrefWidth(50.0);
-        buttonNext.setText("Next");
+        buttonNext.setPrefHeight(30.0);
+        buttonNext.setPrefWidth(30.0);
+        //buttonNext.setText("Next");
         buttonNext.setFont(new Font(10.0));
         buttonNext.setMaxHeight(USE_PREF_SIZE);
         buttonNext.setMaxWidth(USE_PREF_SIZE);
         buttonNext.setMinHeight(USE_PREF_SIZE);
         buttonNext.setMinWidth(USE_PREF_SIZE);
-        buttonNext.setMnemonicParsing(false);
+        buttonNext.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/forwardButton.png",
+                buttonNext.getPrefWidth(),buttonNext.getPrefHeight(),true,true)));
+        buttonNext.setContentDisplay(ContentDisplay.CENTER);
+        buttonNext.setStyle("-fx-background-color: transparent;");
 
         //Knopf für "Shuffle"
-        buttonShuffle.setPrefHeight(25.0);
-        buttonShuffle.setPrefWidth(50.0);
-        buttonShuffle.setText("Shuffle");
+        buttonShuffle.setPrefHeight(30.0);
+        buttonShuffle.setPrefWidth(30.0);
+        //buttonShuffle.setText("Shuffle");
         buttonShuffle.setFont(new Font(10.0));
         buttonShuffle.setMaxHeight(USE_PREF_SIZE);
         buttonShuffle.setMaxWidth(USE_PREF_SIZE);
         buttonShuffle.setMinHeight(USE_PREF_SIZE);
         buttonShuffle.setMinWidth(USE_PREF_SIZE);
         buttonShuffle.setMnemonicParsing(false);
+        buttonShuffle.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/shuffleButton.png",
+                buttonShuffle.getPrefWidth(),buttonShuffle.getPrefHeight(),true,true)));
+        buttonShuffle.setContentDisplay(ContentDisplay.CENTER);
+        buttonShuffle.setStyle("-fx-background-color: transparent;");
         HBox.setMargin(hBoxPlayer, new Insets(0.0));
+        buttonShuffle.setOnAction(e ->
+        {
+            System.out.println("shuffle");
+            shuffleActivated = !shuffleActivated;
+            if(shuffleActivated == false)
+            {
+                buttonShuffle.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/shuffleButton.png",
+                        buttonShuffle.getPrefWidth(),buttonShuffle.getPrefHeight(),true,true)));
+                buttonShuffle.setContentDisplay(ContentDisplay.CENTER);
+                buttonShuffle.setStyle("-fx-background-color: transparent;");
+            }
+            else if (shuffleActivated == true)
+            {
+                buttonShuffle.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/shuffleButtonPressed.png",
+                        buttonShuffle.getPrefWidth(),buttonShuffle.getPrefHeight(),true,true)));
+                buttonShuffle.setContentDisplay(ContentDisplay.CENTER);
+                buttonShuffle.setStyle("-fx-background-color: transparent;");
+            }
+        });
 
         //Die 3te Hbox für den Player unten
-        hBoxAudio.setPrefHeight(80.0);
-        hBoxAudio.setPrefWidth(100.0);
+        hBoxAudio.setPrefHeight(50.0);
+        hBoxAudio.setPrefWidth(60.0);
         hBoxAudio.setAlignment(javafx.geometry.Pos.CENTER_RIGHT);
         hBoxAudio.setMaxHeight(USE_PREF_SIZE);
         hBoxAudio.setMaxWidth(USE_PREF_SIZE);
         hBoxAudio.setMinHeight(USE_PREF_SIZE);
         hBoxAudio.setMinWidth(USE_PREF_SIZE);
 
+        buttonSound.setPrefHeight(30.0);
+        buttonSound.setPrefWidth(30.0);
+        //buttonShuffle.setText("Shuffle");
+        buttonSound.setFont(new Font(10.0));
+        buttonSound.setMaxHeight(USE_PREF_SIZE);
+        buttonSound.setMaxWidth(USE_PREF_SIZE);
+        buttonSound.setMinHeight(USE_PREF_SIZE);
+        buttonSound.setMinWidth(USE_PREF_SIZE);
+        buttonSound.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/volumeButton.png",
+                buttonSound.getPrefWidth(),buttonSound.getPrefHeight(),true,true)));
+        buttonSound.setContentDisplay(ContentDisplay.CENTER);
+        buttonSound.setStyle("-fx-background-color: transparent;");
+        buttonSound.setOnAction(e ->
+        {
+            System.out.println("mute");
+            soundMuted = !soundMuted;
+            if(soundMuted == false)
+            {
+                buttonSound.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/volumeButton.png",
+                        buttonSound.getPrefWidth(),buttonSound.getPrefHeight(),true,true)));
+                buttonSound.setContentDisplay(ContentDisplay.CENTER);
+                buttonSound.setStyle("-fx-background-color: transparent;");
+            }
+            else if (soundMuted == true)
+            {
+                buttonSound.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/volumeMuteButton.png",
+                        buttonSound.getPrefWidth(),buttonSound.getPrefHeight(),true,true)));
+                buttonSound.setContentDisplay(ContentDisplay.CENTER);
+                buttonSound.setStyle("-fx-background-color: transparent;");
+            }
+        });
         //Audioregler
         sliderAudio.setPrefHeight(20.0);
         sliderAudio.setPrefWidth(80.0);
@@ -322,6 +441,7 @@ public class PlayerView extends SplitPane
         hBoxPlayer.getChildren().add(buttonNext);
         hBoxPlayer.getChildren().add(buttonShuffle);
         hBoxPlayerMenu.getChildren().add(hBoxPlayer);
+        hBoxAudio.getChildren().add(buttonSound);
         hBoxAudio.getChildren().add(sliderAudio);
         hBoxPlayerMenu.getChildren().add(hBoxAudio);
         VBoxBot.getChildren().add(hBoxPlayerMenu);

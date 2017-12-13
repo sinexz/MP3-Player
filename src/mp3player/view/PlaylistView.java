@@ -56,14 +56,14 @@ public class PlaylistView extends SplitPane {
         setMinWidth(USE_PREF_SIZE);
         setOrientation(javafx.geometry.Orientation.VERTICAL);
         setPrefHeight(425.0);
-        setPrefWidth(500.0);
+        setPrefWidth(480.0);
 
         anchorPane.setMaxHeight(USE_PREF_SIZE);
         anchorPane.setMaxWidth(USE_PREF_SIZE);
         anchorPane.setMinHeight(USE_PREF_SIZE);
         anchorPane.setMinWidth(USE_PREF_SIZE);
         anchorPane.setPrefHeight(275.0);
-        anchorPane.setPrefWidth(500.0);
+        anchorPane.setPrefWidth(480.0);
 
         splitPane.setDividerPositions(0.33);
         splitPane.setMaxHeight(USE_PREF_SIZE);
@@ -71,7 +71,7 @@ public class PlaylistView extends SplitPane {
         splitPane.setMinHeight(USE_PREF_SIZE);
         splitPane.setMinWidth(USE_PREF_SIZE);
         splitPane.setPrefHeight(275.0);
-        splitPane.setPrefWidth(500.0);
+        splitPane.setPrefWidth(480.0);
 
         VBoxPlaylist.setMaxHeight(USE_PREF_SIZE);
         VBoxPlaylist.setMaxWidth(USE_PREF_SIZE);
