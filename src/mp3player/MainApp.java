@@ -32,7 +32,7 @@ public class MainApp extends Application {
 
         Scene scene = new Scene(playerView.asParent(), 480,390);
         primaryStage.setTitle("MP3 - Player");
-        primaryStage.getIcons().add(new Image("file:src/mp3player.view/img/logo.png"));
+        primaryStage.getIcons().add(new Image("file:src/mp3player/view/img/logo.png"));
         primaryStage.setScene(scene);
         primaryStage.show();
         //initRootLayoutView();
