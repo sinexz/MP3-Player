@@ -25,7 +25,7 @@ public class CoverView extends SplitPane
 
         //SplitPane
         setDividerPositions(0.6);
-        setPrefHeight(425.0);
+        setPrefHeight(500.0);
         setPrefWidth(500.0);
         setMaxHeight(USE_PREF_SIZE);
         setMaxWidth(USE_PREF_SIZE);
@@ -34,7 +34,7 @@ public class CoverView extends SplitPane
         setOrientation(javafx.geometry.Orientation.VERTICAL);
 
         //SplitPane Oben - Bild
-        anchorPaneTop.setPrefHeight(275.0);
+        anchorPaneTop.setPrefHeight(500.0);
         anchorPaneTop.setPrefWidth(500.0);
         anchorPaneTop.setMaxHeight(USE_PREF_SIZE);
         anchorPaneTop.setMaxWidth(USE_PREF_SIZE);
@@ -42,7 +42,7 @@ public class CoverView extends SplitPane
         anchorPaneTop.setMinWidth(USE_PREF_SIZE);
 
         //Hbox als Parent, um HboxImg zu positionieren
-        hBoxTop.setPrefHeight(275.0);
+        hBoxTop.setPrefHeight(500.0);
         hBoxTop.setPrefWidth(500.0);
         hBoxTop.setAlignment(Pos.CENTER);
         hBoxTop.setMaxHeight(USE_PREF_SIZE);
@@ -51,8 +51,8 @@ public class CoverView extends SplitPane
         hBoxTop.setMinWidth(USE_PREF_SIZE);
 
         //HBox für das Bild
-        hBoxImg.setPrefHeight(175.0);
-        hBoxImg.setPrefWidth(175.0);
+        hBoxImg.setPrefHeight(500.0);
+        hBoxImg.setPrefWidth(500.0);
         hBoxImg.setMaxHeight(USE_PREF_SIZE);
         hBoxImg.setMaxWidth(USE_PREF_SIZE);
         hBoxImg.setMinHeight(USE_PREF_SIZE);

@@ -89,8 +89,8 @@ public class PlayerView extends SplitPane
         view.setOrientation(javafx.geometry.Orientation.VERTICAL);
 
         //SplitPane Oben - Bild
-        anchorPaneTop.setPrefHeight(255.0);
-        anchorPaneTop.setPrefWidth(255.0);
+        anchorPaneTop.setPrefHeight(500.0);
+        anchorPaneTop.setPrefWidth(500.0);
         anchorPaneTop.setMaxHeight(USE_PREF_SIZE);
         anchorPaneTop.setMaxWidth(USE_PREF_SIZE);
         anchorPaneTop.setMinHeight(USE_PREF_SIZE);
@@ -99,20 +99,21 @@ public class PlayerView extends SplitPane
                 .rgb(17, 119, 255), CornerRadii.EMPTY, Insets.EMPTY)));
 
         //AnchorPane für den Unteren Splitbereich
-        anchorPaneBot.setPrefHeight(135.0);
-        anchorPaneBot.setPrefWidth(480.0);
+        anchorPaneBot.setPrefHeight(130.0);
+        anchorPaneBot.setPrefWidth(500.0);
         anchorPaneBot.setMaxHeight(USE_PREF_SIZE);
         anchorPaneBot.setMaxWidth(USE_PREF_SIZE);
         anchorPaneBot.setMinHeight(USE_PREF_SIZE);
         anchorPaneBot.setMinWidth(USE_PREF_SIZE);
 
         //Vbox für den Player-Controller
-        VBoxBot.setPrefHeight(100.0);
+        VBoxBot.setPrefHeight(150.0);
         VBoxBot.setPrefWidth(480.0);
         VBoxBot.setMaxHeight(USE_PREF_SIZE);
         VBoxBot.setMaxWidth(USE_PREF_SIZE);
         VBoxBot.setMinHeight(USE_PREF_SIZE);
         VBoxBot.setMinWidth(USE_PREF_SIZE);
+        VBoxBot.setPadding(new Insets(5,0,0,0));
 
         // Die Vbox für die Labels, songname und interpret
         vBoxSong.setPrefHeight(50.0);
@@ -238,7 +239,7 @@ public class PlayerView extends SplitPane
         hBoxPlayer.setPrefHeight(50.0);
         hBoxPlayer.setPrefWidth(370.0);
         hBoxPlayer.setSpacing(10.0);
-        hBoxPlayer.setAlignment(javafx.geometry.Pos.CENTER);
+        hBoxPlayer.setAlignment(Pos.BOTTOM_CENTER);
         hBoxPlayer.setMaxHeight(USE_PREF_SIZE);
         hBoxPlayer.setMaxWidth(USE_PREF_SIZE);
         hBoxPlayer.setMinHeight(USE_PREF_SIZE);
