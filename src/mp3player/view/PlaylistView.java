@@ -11,7 +11,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import mp3player.model.Player;
 
-public class PlaylistView extends SplitPane {
+public class PlaylistView extends SplitPane
+{
 
     protected final AnchorPane anchorPane;
     protected final SplitPane splitPane;

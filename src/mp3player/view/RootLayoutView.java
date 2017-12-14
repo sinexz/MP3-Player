@@ -9,6 +9,6 @@ public class RootLayoutView extends BorderPane
     public RootLayoutView()
     {
         rootPane = new BorderPane();
-        rootPane.setPrefSize(520,440);
+        rootPane.setPrefSize(501,638);
     }
 }
