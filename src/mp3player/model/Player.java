@@ -8,6 +8,14 @@ public class Player
     SimpleMinim minim = new SimpleMinim(true);
     SimpleAudioPlayer audioPlayer;
 
+    public Player() { this(null,null); }
+
+    public Player(SimpleMinim minim, SimpleAudioPlayer audioPlayer)
+    {
+        this.minim = minim;
+        this.audioPlayer = audioPlayer;
+    }
+
     private boolean statusPlaying = false;
 
     public void play() { audioPlayer.play(); }
