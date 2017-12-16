@@ -19,7 +19,7 @@ public class PlayerView extends SplitPane
     protected final SplitPane view;
     protected final AnchorPane anchorPaneTop;
     protected final AnchorPane anchorPaneBot;
-    protected final VBox VBoxBot;
+    protected final VBox vBoxBot;
     protected final VBox vBoxSong;
     protected final Label labelSong;
     protected final Label labelInterpret;
@@ -39,7 +39,7 @@ public class PlayerView extends SplitPane
     protected final HBox hBoxAudio;
     protected final Button buttonSound;
     protected final Slider sliderAudio;
-    protected PlayerViewController playerViewController;
+    protected PlayerController playerController;
     protected Player playerModel;
     protected PlaylistView playlistView;
     protected CoverView coverView;
@@ -49,16 +49,16 @@ public class PlayerView extends SplitPane
     protected Boolean shuffleActivated = false;
     protected Boolean repeatActivated = false;
 
-    public PlayerView(PlayerViewController playerViewController, Player playerModel)
+    public PlayerView(PlayerController playerController, Player playerModel)
     {
-        this.playerViewController = playerViewController;
+        this.playerController = playerController;
         this.playerModel = playerModel;
-        playlistView = new PlaylistView(playerViewController, playerModel);
-        coverView = new CoverView(playerViewController, playerModel);
+        playlistView = new PlaylistView(playerController, playerModel);
+        coverView = new CoverView(playerController, playerModel);
         view = new SplitPane();
         anchorPaneTop = new AnchorPane();
         anchorPaneBot = new AnchorPane();
-        VBoxBot = new VBox();
+        vBoxBot = new VBox();
         vBoxSong = new VBox();
         labelSong = new Label();
         labelInterpret = new Label();
@@ -108,13 +108,13 @@ public class PlayerView extends SplitPane
         anchorPaneBot.setMinWidth(USE_PREF_SIZE);
 
         //Vbox für den Player-Controller
-        VBoxBot.setPrefHeight(150.0);
-        VBoxBot.setPrefWidth(480.0);
-        VBoxBot.setMaxHeight(USE_PREF_SIZE);
-        VBoxBot.setMaxWidth(USE_PREF_SIZE);
-        VBoxBot.setMinHeight(USE_PREF_SIZE);
-        VBoxBot.setMinWidth(USE_PREF_SIZE);
-        VBoxBot.setPadding(new Insets(5,0,0,0));
+        vBoxBot.setPrefHeight(150.0);
+        vBoxBot.setPrefWidth(480.0);
+        vBoxBot.setMaxHeight(USE_PREF_SIZE);
+        vBoxBot.setMaxWidth(USE_PREF_SIZE);
+        vBoxBot.setMinHeight(USE_PREF_SIZE);
+        vBoxBot.setMinWidth(USE_PREF_SIZE);
+        vBoxBot.setPadding(new Insets(5,0,0,0));
 
         // Die Vbox für die Labels, songname und interpret
         vBoxSong.setPrefHeight(50.0);
@@ -318,28 +318,7 @@ public class PlayerView extends SplitPane
                 buttonPlay.getPrefWidth(),buttonPlay.getPrefHeight(),true,true)));
         buttonPlay.setContentDisplay(ContentDisplay.CENTER);
         buttonPlay.setStyle("-fx-background-color: transparent;");
-        buttonPlay.setOnAction(e ->
-        {
-            songPaused = !songPaused;
-            if(songPaused == false)
-            {
-                System.out.println("pause");
-                buttonPlay.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/playButton.png",
-                        buttonPlay.getPrefWidth(),buttonPlay.getPrefHeight(),true,true)));
-                buttonPlay.setContentDisplay(ContentDisplay.CENTER);
-                buttonPlay.setStyle("-fx-background-color: transparent;");
-                //pause
-            }
-            else if (songPaused == true)
-            {
-                System.out.println("play");
-                buttonPlay.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/pauseButton.png",
-                        buttonPlay.getPrefWidth(),buttonPlay.getPrefHeight(),true,true)));
-                buttonPlay.setContentDisplay(ContentDisplay.CENTER);
-                buttonPlay.setStyle("-fx-background-color: transparent;");
-                //play
-            }
-        });
+        buttonPlay.setOnAction(e -> { PlayerController.handlePlayTrigger(buttonPlay); });
 
         //Knopf für nächstes Lied
         buttonNext.setPrefHeight(30.0);
@@ -457,11 +436,11 @@ public class PlayerView extends SplitPane
         view.getItems().add(anchorPaneTop);
         vBoxSong.getChildren().add(labelSong);
         vBoxSong.getChildren().add(labelInterpret);
-        VBoxBot.getChildren().add(vBoxSong);
+        vBoxBot.getChildren().add(vBoxSong);
         hBoxTimeBar.getChildren().add(labelTimeLeft);
         hBoxTimeBar.getChildren().add(progressBar);
         hBoxTimeBar.getChildren().add(labelTimeRight);
-        VBoxBot.getChildren().add(hBoxTimeBar);
+        vBoxBot.getChildren().add(hBoxTimeBar);
         hBoxPlaylist.getChildren().add(buttonPlaylist);
         hBoxPlayerMenu.getChildren().add(hBoxPlaylist);
         hBoxPlayer.getChildren().add(buttonReplay);
@@ -473,14 +452,17 @@ public class PlayerView extends SplitPane
         hBoxAudio.getChildren().add(buttonSound);
         hBoxAudio.getChildren().add(sliderAudio);
         hBoxPlayerMenu.getChildren().add(hBoxAudio);
-        VBoxBot.getChildren().add(hBoxPlayerMenu);
-        anchorPaneBot.getChildren().add(VBoxBot);
+        vBoxBot.getChildren().add(hBoxPlayerMenu);
+        anchorPaneBot.getChildren().add(vBoxBot);
         view.getItems().add(anchorPaneBot);
+
+        //Create PlayerController
+
     }
 
-    public PlayerViewController getController()
+    public PlayerController getController()
     {
-        return playerViewController;
+        return playerController;
     }
 
     public Parent asParent()

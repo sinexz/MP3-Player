@@ -13,7 +13,7 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private PlayerViewController playerViewController;
+    private PlayerController playerController;
     private Player playerModel;
     private PlayerView playerView;
 
@@ -27,8 +27,8 @@ public class MainApp extends Application {
     public void start(Stage primaryStage)
     {
         playerModel = new Player();
-        playerViewController = new PlayerViewController(playerModel);
-        playerView = new PlayerView(playerViewController, playerModel);
+        playerController = new PlayerController(playerModel);
+        playerView = new PlayerView(playerController, playerModel);
 
         Scene scene = new Scene(playerView.asParent(), 501,638);
         primaryStage.setTitle("MP3 - Player");
@@ -54,13 +54,13 @@ public class MainApp extends Application {
     public void initPlayerView()
     {
         //Load playerModel Layout
-        PlayerView view = new PlayerView(playerViewController,playerModel);
+        PlayerView view = new PlayerView(playerController,playerModel);
         SplitPane playerOverview = (SplitPane) view;
 
         rootLayout.setCenter(playerOverview);
 
         //Give the controller acess to the main
-        PlayerViewController controller = view.getController();
+        PlayerController controller = view.getController();
         controller.setMainApp(this);
     }
 }

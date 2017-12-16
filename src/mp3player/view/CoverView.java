@@ -14,10 +14,10 @@ public class CoverView extends SplitPane
     protected final AnchorPane anchorPaneTop;
     protected final HBox hBoxTop;
     protected final HBox hBoxImg;
-    protected PlayerViewController playerViewController;
+    protected PlayerController playerController;
     protected Player player;
 
-    public CoverView(PlayerViewController playerViewController, Player player)
+    public CoverView(PlayerController playerController, Player player)
     {
 
         anchorPaneTop = new AnchorPane();

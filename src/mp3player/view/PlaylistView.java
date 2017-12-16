@@ -1,7 +1,6 @@
 package mp3player.view;
 
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,7 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import mp3player.model.Player;
-import mp3player.util.EffectUtil;
+import mp3player.model.Track;
 
 public class PlaylistView extends SplitPane
 {
@@ -18,33 +17,35 @@ public class PlaylistView extends SplitPane
     protected final AnchorPane anchorPane;
     protected final SplitPane splitPane;
     protected final VBox VBoxPlaylist;
-    protected final TableView tableView;
+    protected final TableView trackTableView;
     protected final TableColumn tableColumnPlaylists;
     protected final HBox HBoxPlaylist;
     protected final Label labelAddPlaylist;
     protected final Button buttonAddPlaylist;
     protected final ImageView imageView;
     protected final HBox hBox0;
-    protected final TableView tableViewPlaylist;
+    protected final TableView playlistTableView;
     protected final TableColumn title;
     protected final TableColumn album;
     protected final TableColumn artist;
-    protected PlayerViewController playerViewController;
+    protected PlayerController playerController;
     protected Player player;
 
-    public PlaylistView(PlayerViewController playerViewController, Player player)
+    public PlaylistView(PlayerController playerController, Player player)
     {
+        this.playerController = playerController;
+        this.player = player;
         anchorPane = new AnchorPane();
         splitPane = new SplitPane();
         VBoxPlaylist = new VBox();
-        tableView = new TableView();
+        trackTableView = new TableView();
         tableColumnPlaylists = new TableColumn();
         HBoxPlaylist = new HBox();
         labelAddPlaylist = new Label();
         buttonAddPlaylist = new Button();
         imageView = new ImageView();
         hBox0 = new HBox();
-        tableViewPlaylist = new TableView();
+        playlistTableView = new TableView();
         title = new TableColumn();
         album = new TableColumn();
         artist = new TableColumn();
@@ -80,12 +81,12 @@ public class PlaylistView extends SplitPane
         VBoxPlaylist.setPrefHeight(500.0);
         VBoxPlaylist.setPrefWidth(130.0);
 
-        tableView.setMaxHeight(USE_PREF_SIZE);
-        tableView.setMaxWidth(USE_PREF_SIZE);
-        tableView.setMinHeight(USE_PREF_SIZE);
-        tableView.setMinWidth(USE_PREF_SIZE);
-        tableView.setPrefHeight(465.0);
-        tableView.setPrefWidth(130.0);
+        trackTableView.setMaxHeight(USE_PREF_SIZE);
+        trackTableView.setMaxWidth(USE_PREF_SIZE);
+        trackTableView.setMinHeight(USE_PREF_SIZE);
+        trackTableView.setMinWidth(USE_PREF_SIZE);
+        trackTableView.setPrefHeight(465.0);
+        trackTableView.setPrefWidth(130.0);
 
         tableColumnPlaylists.setPrefWidth(130.0);
         tableColumnPlaylists.setText("Playlists");
@@ -132,12 +133,12 @@ public class PlaylistView extends SplitPane
         hBox0.setPrefHeight(500.0);
         hBox0.setPrefWidth(350.0);
 
-        tableViewPlaylist.setMaxHeight(USE_PREF_SIZE);
-        tableViewPlaylist.setMaxWidth(USE_PREF_SIZE);
-        tableViewPlaylist.setMinHeight(USE_PREF_SIZE);
-        tableViewPlaylist.setMinWidth(USE_PREF_SIZE);
-        tableViewPlaylist.setPrefHeight(500.0);
-        tableViewPlaylist.setPrefWidth(350.0);
+        playlistTableView.setMaxHeight(USE_PREF_SIZE);
+        playlistTableView.setMaxWidth(USE_PREF_SIZE);
+        playlistTableView.setMinHeight(USE_PREF_SIZE);
+        playlistTableView.setMinWidth(USE_PREF_SIZE);
+        playlistTableView.setPrefHeight(500.0);
+        playlistTableView.setPrefWidth(350.0);
 
         title.setMinWidth(100.0);
         title.setPrefWidth(115.3);
@@ -150,18 +151,23 @@ public class PlaylistView extends SplitPane
         artist.setPrefWidth(115.33);
         artist.setText("Interpret");
 
-        tableView.getColumns().add(tableColumnPlaylists);
-        VBoxPlaylist.getChildren().add(tableView);
+        trackTableView.getColumns().add(tableColumnPlaylists);
+        VBoxPlaylist.getChildren().add(trackTableView);
         HBoxPlaylist.getChildren().add(labelAddPlaylist);
         HBoxPlaylist.getChildren().add(buttonAddPlaylist);
         VBoxPlaylist.getChildren().add(HBoxPlaylist);
         splitPane.getItems().add(VBoxPlaylist);
-        tableViewPlaylist.getColumns().add(title);
-        tableViewPlaylist.getColumns().add(album);
-        tableViewPlaylist.getColumns().add(artist);
-        hBox0.getChildren().add(tableViewPlaylist);
+        playlistTableView.getColumns().add(title);
+        playlistTableView.getColumns().add(album);
+        playlistTableView.getColumns().add(artist);
+        hBox0.getChildren().add(playlistTableView);
         splitPane.getItems().add(hBox0);
         anchorPane.getChildren().add(splitPane);
         getItems().add(anchorPane);
+    }
+
+    public void selectTrackTableView(Track track)
+    {
+        trackTableView.getSelectionModel().select(track);
     }
 }
