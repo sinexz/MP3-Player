@@ -30,6 +30,8 @@ public class Track
 
     public StringProperty getFileName() { return fileName; }
 
+    public String getFileNameString() { return fileName.toString(); }
+
     public void setFileName(StringProperty fileName) { this.fileName = fileName; }
 
     public Mp3File getMp3File() { return mp3File; }

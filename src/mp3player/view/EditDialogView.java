@@ -1,54 +1,51 @@
 package mp3player.view;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import mp3player.model.Playlist;
 import mp3player.util.EffectUtil;
-import mp3player.util.PlayListUtil;
-import java.io.File;
 
 public class EditDialogView extends AnchorPane
 {
 
-    protected final AnchorPane dialogBox;
+    public static AnchorPane dialogBox;
     protected final HBox inputBox;
-    protected final TextField titleTextField;
+    protected static TextField titleTextField;
     protected final HBox buttonBox;
-    protected final Button saveButton;
-    protected final Button closeButton;
-    protected final VBox vboxLayout;
+    protected static Button saveButton;
+    protected static Button closeButton;
+    protected static Button deleteButton;
+    protected final VBox vBoxLayout;
     protected final Label labelField;
-    private Stage dialogStage;
-    private Scene dialogScene;
+    public static Stage dialogStage;
+    public static Scene dialogScene;
     private Playlist playlist;
     private boolean saveClicked = false;
 
     public EditDialogView() {
         dialogStage = new Stage();
         dialogBox = new AnchorPane();
-        vboxLayout = new VBox();
+        vBoxLayout = new VBox();
         inputBox = new HBox();
         labelField = new Label();
         titleTextField = new TextField();
         buttonBox = new HBox();
         saveButton = new Button();
         closeButton = new Button();
+        deleteButton = new Button();
 
         dialogStage.initModality(Modality.APPLICATION_MODAL);
-        dialogStage.setTitle("Playlist Hinzufügen");
+        dialogStage.setTitle("New Playlist");
         dialogStage.setMinWidth(200);
         dialogStage.initStyle(StageStyle.TRANSPARENT);
 
@@ -60,12 +57,12 @@ public class EditDialogView extends AnchorPane
         dialogBox.setPrefWidth(200.0);
         EffectUtil.addDragListeners(dialogBox);
 
-        vboxLayout.setMaxHeight(USE_PREF_SIZE);
-        vboxLayout.setMaxWidth(USE_PREF_SIZE);
-        vboxLayout.setMinHeight(USE_PREF_SIZE);
-        vboxLayout.setMinWidth(USE_PREF_SIZE);
-        vboxLayout.setPrefHeight(100.0);
-        vboxLayout.setPrefWidth(200.0);
+        vBoxLayout.setMaxHeight(USE_PREF_SIZE);
+        vBoxLayout.setMaxWidth(USE_PREF_SIZE);
+        vBoxLayout.setMinHeight(USE_PREF_SIZE);
+        vBoxLayout.setMinWidth(USE_PREF_SIZE);
+        vBoxLayout.setPrefHeight(100.0);
+        vBoxLayout.setPrefWidth(200.0);
 
 
         VBox.setVgrow(inputBox, javafx.scene.layout.Priority.NEVER);
@@ -114,19 +111,7 @@ public class EditDialogView extends AnchorPane
         saveButton.setPrefHeight(25.0);
         saveButton.setPrefWidth(75.0);
         saveButton.setText("save");
-        saveButton.setOnAction(event ->
-        {
-            if (isInputValid())
-            {
-                DirectoryChooser chooser = new DirectoryChooser();
-                chooser.setTitle("Select the folder of your tracks");
-                File selectedDirectory = chooser.showDialog(dialogStage);
-                playlist.setPath(new SimpleStringProperty(selectedDirectory.toString()));
-                playlist.setName(new SimpleStringProperty(titleTextField.getText()));
-                saveClicked = true;
-                dialogStage.close();
-            }
-        });
+
 
         HBox.setHgrow(closeButton, javafx.scene.layout.Priority.NEVER);
         closeButton.setMaxHeight(USE_PREF_SIZE);
@@ -137,56 +122,27 @@ public class EditDialogView extends AnchorPane
         closeButton.setPrefHeight(25.0);
         closeButton.setPrefWidth(75.0);
         closeButton.setText("cancel");
-        closeButton.setOnAction(e -> { dialogStage.close(); });
+
+        deleteButton.setMaxHeight(USE_PREF_SIZE);
+        deleteButton.setMaxWidth(USE_PREF_SIZE);
+        deleteButton.setMinHeight(USE_PREF_SIZE);
+        deleteButton.setMinWidth(USE_PREF_SIZE);
+        deleteButton.setPrefHeight(20.0);
+        deleteButton.setPrefWidth(25.0);
+        deleteButton.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/deleteButton.png",
+                deleteButton.getPrefWidth(),deleteButton.getPrefHeight(),true,true)));
+        deleteButton.setContentDisplay(ContentDisplay.CENTER);
+        deleteButton.setStyle("-fx-background-color: transparent;");
 
         inputBox.getChildren().addAll(labelField,titleTextField);
         dialogBox.getChildren().add(inputBox);
-        buttonBox.getChildren().addAll(saveButton,closeButton);
-        vboxLayout.getChildren().addAll(inputBox,buttonBox);
-        dialogBox.getChildren().add(vboxLayout);
+        buttonBox.getChildren().addAll(saveButton,closeButton,deleteButton);
+        vBoxLayout.getChildren().addAll(inputBox,buttonBox);
+        dialogBox.getChildren().add(vBoxLayout);
 
         dialogScene = new Scene(dialogBox);
         dialogStage.setScene(dialogScene);
         dialogStage.showAndWait();
+        EditDialogViewController.intialize();
     }
-
-    private void intialize() { EffectUtil.addDragListeners(dialogBox); }
-
-    private void handleDeletePlaylist()
-    {
-        PlayListUtil.delete(playlist);
-        dialogStage.close();
-    }
-
-    public void setPlaylist(Playlist playlist)
-    {
-        this.playlist = playlist;
-        titleTextField.setText(playlist.getName().getValue());
-        if (playlist.getId().getValue() == 0)
-        {
-            //deletePlaylistButton.setDiasable(true);
-        }
-    }
-
-    public boolean isSaveClicked() { return saveClicked; }
-
-    public void setDialogStage(Stage dialogStage) { this.dialogStage = dialogStage; }
-
-    private boolean isInputValid() {
-        String errorMessage = "";
-        if (titleTextField.getText() == null || titleTextField.getText().length() == 0) {
-            errorMessage += "Please enter a valid name!\n";
-        }
-        if (errorMessage.length() == 0) {
-            return true;
-        } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Missing data");
-            alert.setHeaderText(null);
-            alert.setContentText(errorMessage);
-            alert.showAndWait();
-            return false;
-        }
-    }
-
 }

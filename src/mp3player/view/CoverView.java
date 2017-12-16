@@ -13,7 +13,7 @@ public class CoverView extends SplitPane
 
     protected final AnchorPane anchorPaneTop;
     protected final HBox hBoxTop;
-    protected final HBox hBoxImg;
+    protected static HBox hBoxImg;
     protected PlayerController playerController;
     protected Player player;
 

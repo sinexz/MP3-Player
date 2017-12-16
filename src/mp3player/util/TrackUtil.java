@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class TrackUtil
 {
@@ -35,14 +36,15 @@ public class TrackUtil
             System.out.println("Can´t find audio source directory: " + dir + " please input a directory as a command line argument");
         }
 
-        for (String file : dir.list((File dirl, String name) ->
+        for (String file : Objects.requireNonNull(dir.list((File dirl, String name) ->
         {
-            for (String ext : SUPPORTET_FILE_EXTENTIONS)
-            {
-                return true;
+            for (String ext : SUPPORTET_FILE_EXTENTIONS) {
+                if (name.endsWith(ext)) {
+                    return true;
+                }
             }
             return false;
-        }))
+        })))
         {
             String fileURL = dir + "\\" + file;
             String cleanURL = cleanURL(fileURL);

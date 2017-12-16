@@ -17,17 +17,17 @@ public class PlaylistView extends SplitPane
     protected final AnchorPane anchorPane;
     protected final SplitPane splitPane;
     protected final VBox VBoxPlaylist;
-    protected final TableView trackTableView;
-    protected final TableColumn tableColumnPlaylists;
+    protected static TableView trackTableView;
+    protected static TableColumn tableColumnPlaylist;
     protected final HBox HBoxPlaylist;
     protected final Label labelAddPlaylist;
-    protected final Button buttonAddPlaylist;
+    protected static Button buttonAddPlaylist;
     protected final ImageView imageView;
     protected final HBox hBox0;
-    protected final TableView playlistTableView;
-    protected final TableColumn title;
-    protected final TableColumn album;
-    protected final TableColumn artist;
+    protected static TableView playlistTableView;
+    protected static TableColumn title;
+    protected static TableColumn album;
+    protected static TableColumn artist;
     protected PlayerController playerController;
     protected Player player;
 
@@ -39,7 +39,7 @@ public class PlaylistView extends SplitPane
         splitPane = new SplitPane();
         VBoxPlaylist = new VBox();
         trackTableView = new TableView();
-        tableColumnPlaylists = new TableColumn();
+        tableColumnPlaylist = new TableColumn();
         HBoxPlaylist = new HBox();
         labelAddPlaylist = new Label();
         buttonAddPlaylist = new Button();
@@ -88,8 +88,8 @@ public class PlaylistView extends SplitPane
         trackTableView.setPrefHeight(465.0);
         trackTableView.setPrefWidth(130.0);
 
-        tableColumnPlaylists.setPrefWidth(130.0);
-        tableColumnPlaylists.setText("Playlists");
+        tableColumnPlaylist.setPrefWidth(130.0);
+        tableColumnPlaylist.setText("Playlists");
 
         HBoxPlaylist.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
         HBoxPlaylist.setPrefHeight(100.0);
@@ -119,11 +119,6 @@ public class PlaylistView extends SplitPane
                 buttonAddPlaylist.getPrefWidth(),buttonAddPlaylist.getPrefHeight(),true,true)));
         buttonAddPlaylist.setContentDisplay(ContentDisplay.CENTER);
         buttonAddPlaylist.setStyle("-fx-background-color: transparent;");
-        buttonAddPlaylist.setOnAction(event -> {
-            EditDialogView editDialogView = new EditDialogView();
-        });
-
-
 
         hBox0.setAlignment(javafx.geometry.Pos.CENTER);
         hBox0.setMaxHeight(USE_PREF_SIZE);
@@ -151,7 +146,7 @@ public class PlaylistView extends SplitPane
         artist.setPrefWidth(115.33);
         artist.setText("Interpret");
 
-        trackTableView.getColumns().add(tableColumnPlaylists);
+        trackTableView.getColumns().add(tableColumnPlaylist);
         VBoxPlaylist.getChildren().add(trackTableView);
         HBoxPlaylist.getChildren().add(labelAddPlaylist);
         HBoxPlaylist.getChildren().add(buttonAddPlaylist);
@@ -164,10 +159,5 @@ public class PlaylistView extends SplitPane
         splitPane.getItems().add(hBox0);
         anchorPane.getChildren().add(splitPane);
         getItems().add(anchorPane);
-    }
-
-    public void selectTrackTableView(Track track)
-    {
-        trackTableView.getSelectionModel().select(track);
     }
 }

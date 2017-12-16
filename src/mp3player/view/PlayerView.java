@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import mp3player.model.Player;
 
+
 public class PlayerView extends SplitPane
 {
 
@@ -21,23 +22,23 @@ public class PlayerView extends SplitPane
     protected final AnchorPane anchorPaneBot;
     protected final VBox vBoxBot;
     protected final VBox vBoxSong;
-    protected final Label labelSong;
-    protected final Label labelInterpret;
+    protected static Label labelSong;
+    protected static Label labelInterpret;
     protected final HBox hBoxTimeBar;
-    protected final Label labelTimeLeft;
-    protected final ProgressBar progressBar;
+    protected static Label labelTimeLeft;
+    protected static ProgressBar progressBar;
     protected final Label labelTimeRight;
     protected final HBox hBoxPlayerMenu;
     protected final HBox hBoxPlaylist;
-    protected final Button buttonPlaylist;
+    protected static Button buttonPlaylist;
     protected final HBox hBoxPlayer;
-    protected final Button buttonReplay;
-    protected final Button buttonBack;
-    protected final Button buttonPlay;
-    protected final Button buttonNext;
-    protected final Button buttonShuffle;
+    protected static Button buttonReplay;
+    protected static Button buttonPrev;
+    protected static Button buttonPlay;
+    protected static Button buttonNext;
+    protected static Button buttonShuffle;
     protected final HBox hBoxAudio;
-    protected final Button buttonSound;
+    protected static Button buttonSound;
     protected final Slider sliderAudio;
     protected PlayerController playerController;
     protected Player playerModel;
@@ -71,7 +72,7 @@ public class PlayerView extends SplitPane
         buttonPlaylist = new Button();
         hBoxPlayer = new HBox();
         buttonReplay = new Button();
-        buttonBack = new Button();
+        buttonPrev = new Button();
         buttonPlay = new Button();
         buttonNext = new Button();
         buttonShuffle = new Button();
@@ -286,24 +287,19 @@ public class PlayerView extends SplitPane
             }
         });
 
-        buttonBack.setPrefHeight(30.0);
-        buttonBack.setPrefWidth(30.0);
-        //buttonBack.setText("Back");
-        buttonBack.setFont(new Font(10.0));
-        buttonBack.setMaxHeight(USE_PREF_SIZE);
-        buttonBack.setMaxWidth(USE_PREF_SIZE);
-        buttonBack.setMinHeight(USE_PREF_SIZE);
-        buttonBack.setMinWidth(USE_PREF_SIZE);
-        buttonBack.setMnemonicParsing(false);
-        buttonBack.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/rewindButton.png",
-                buttonBack.getPrefWidth(),buttonBack.getPrefHeight(),true,true)));
-        buttonBack.setContentDisplay(ContentDisplay.CENTER);
-        buttonBack.setStyle("-fx-background-color: transparent;");
-        buttonBack.setOnAction(e -> 
-        {
-            System.out.println("back");
-            //back
-        });
+        buttonPrev.setPrefHeight(30.0);
+        buttonPrev.setPrefWidth(30.0);
+        //buttonPrev.setText("Back");
+        buttonPrev.setFont(new Font(10.0));
+        buttonPrev.setMaxHeight(USE_PREF_SIZE);
+        buttonPrev.setMaxWidth(USE_PREF_SIZE);
+        buttonPrev.setMinHeight(USE_PREF_SIZE);
+        buttonPrev.setMinWidth(USE_PREF_SIZE);
+        buttonPrev.setMnemonicParsing(false);
+        buttonPrev.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/rewindButton.png",
+                buttonPrev.getPrefWidth(), buttonPrev.getPrefHeight(),true,true)));
+        buttonPrev.setContentDisplay(ContentDisplay.CENTER);
+        buttonPrev.setStyle("-fx-background-color: transparent;");
 
         //Knopf für spielen/pause
         buttonPlay.setPrefHeight(35.0);
@@ -318,7 +314,6 @@ public class PlayerView extends SplitPane
                 buttonPlay.getPrefWidth(),buttonPlay.getPrefHeight(),true,true)));
         buttonPlay.setContentDisplay(ContentDisplay.CENTER);
         buttonPlay.setStyle("-fx-background-color: transparent;");
-        buttonPlay.setOnAction(e -> { PlayerController.handlePlayTrigger(buttonPlay); });
 
         //Knopf für nächstes Lied
         buttonNext.setPrefHeight(30.0);
@@ -333,11 +328,6 @@ public class PlayerView extends SplitPane
                 buttonNext.getPrefWidth(),buttonNext.getPrefHeight(),true,true)));
         buttonNext.setContentDisplay(ContentDisplay.CENTER);
         buttonNext.setStyle("-fx-background-color: transparent;");
-        buttonNext.setOnAction(e ->
-        {
-            System.out.println("next");
-            //next
-        });
 
         //Knopf für "Shuffle"
         buttonShuffle.setPrefHeight(30.0);
@@ -444,7 +434,7 @@ public class PlayerView extends SplitPane
         hBoxPlaylist.getChildren().add(buttonPlaylist);
         hBoxPlayerMenu.getChildren().add(hBoxPlaylist);
         hBoxPlayer.getChildren().add(buttonReplay);
-        hBoxPlayer.getChildren().add(buttonBack);
+        hBoxPlayer.getChildren().add(buttonPrev);
         hBoxPlayer.getChildren().add(buttonPlay);
         hBoxPlayer.getChildren().add(buttonNext);
         hBoxPlayer.getChildren().add(buttonShuffle);
@@ -455,9 +445,6 @@ public class PlayerView extends SplitPane
         vBoxBot.getChildren().add(hBoxPlayerMenu);
         anchorPaneBot.getChildren().add(vBoxBot);
         view.getItems().add(anchorPaneBot);
-
-        //Create PlayerController
-
     }
 
     public PlayerController getController()
