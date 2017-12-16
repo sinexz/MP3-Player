@@ -188,7 +188,7 @@ public class PlayerView extends SplitPane
         HBox.setMargin(labelTimeRight, new Insets(10.0, 0.0, 0.0, 5.0));
 
         // Hbox für die 3 Hboxen, die den Player steuern.
-        hBoxPlayerMenu.setPrefHeight(45.0);
+        hBoxPlayerMenu.setPrefHeight(50.0);
         hBoxPlayerMenu.setPrefWidth(480.0);
         hBoxPlayerMenu.setAlignment(Pos.CENTER);
         hBoxPlayerMenu.setMaxHeight(USE_PREF_SIZE);
@@ -199,12 +199,13 @@ public class PlayerView extends SplitPane
 
         //Die Hbox für den Playlistbutton
         hBoxPlaylist.setPrefHeight(50.0);
-        hBoxPlaylist.setPrefWidth(50.0);
-        hBoxPlaylist.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+        hBoxPlaylist.setPrefWidth(60.0);
+        //hBoxPlaylist.setAlignment
         hBoxPlaylist.setMaxHeight(USE_PREF_SIZE);
         hBoxPlaylist.setMaxWidth(USE_PREF_SIZE);
         hBoxPlaylist.setMinHeight(USE_PREF_SIZE);
         hBoxPlaylist.setMinWidth(USE_PREF_SIZE);
+        hBoxPlaylist.setMargin(buttonPlaylist,new Insets(7,0,0,15));
 
         //Knopf für das Wechseln auf die Playlist
         buttonPlaylist.setPrefHeight(55.0);
@@ -215,7 +216,6 @@ public class PlayerView extends SplitPane
         buttonPlaylist.setMinWidth(USE_PREF_SIZE);
         buttonPlaylist.setMnemonicParsing(false);
         //buttonPlaylist.setText("Playlist");
-        HBox.setMargin(buttonPlaylist, new Insets(0.0, 0.0, 0.0, 10.0));
         buttonPlaylist.setGraphic(new ImageView(new Image("file:src/mp3player/view/img/playlistButton.png",
                 buttonPlaylist.getPrefWidth(),buttonPlaylist.getPrefHeight(),true,true)));
         buttonPlaylist.setContentDisplay(ContentDisplay.CENTER);
@@ -406,6 +406,8 @@ public class PlayerView extends SplitPane
         hBoxAudio.setMaxWidth(USE_PREF_SIZE);
         hBoxAudio.setMinHeight(USE_PREF_SIZE);
         hBoxAudio.setMinWidth(USE_PREF_SIZE);
+        hBoxAudio.setMargin(buttonSound, new Insets(20,0,0,0));
+        hBoxAudio.setMargin(sliderAudio, new Insets(20,0,0,0));
 
         buttonSound.setPrefHeight(30.0);
         buttonSound.setPrefWidth(30.0);

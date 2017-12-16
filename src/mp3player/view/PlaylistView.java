@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import mp3player.model.Player;
+import mp3player.util.EffectUtil;
 
 public class PlaylistView extends SplitPane
 {
@@ -77,16 +78,16 @@ public class PlaylistView extends SplitPane
         VBoxPlaylist.setMinHeight(USE_PREF_SIZE);
         VBoxPlaylist.setMinWidth(USE_PREF_SIZE);
         VBoxPlaylist.setPrefHeight(500.0);
-        VBoxPlaylist.setPrefWidth(150.0);
+        VBoxPlaylist.setPrefWidth(130.0);
 
         tableView.setMaxHeight(USE_PREF_SIZE);
         tableView.setMaxWidth(USE_PREF_SIZE);
         tableView.setMinHeight(USE_PREF_SIZE);
         tableView.setMinWidth(USE_PREF_SIZE);
         tableView.setPrefHeight(465.0);
-        tableView.setPrefWidth(150.0);
+        tableView.setPrefWidth(130.0);
 
-        tableColumnPlaylists.setPrefWidth(150.0);
+        tableColumnPlaylists.setPrefWidth(130.0);
         tableColumnPlaylists.setText("Playlists");
 
         HBoxPlaylist.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
@@ -99,7 +100,7 @@ public class PlaylistView extends SplitPane
         labelAddPlaylist.setMaxWidth(USE_PREF_SIZE);
         labelAddPlaylist.setMinHeight(USE_PREF_SIZE);
         labelAddPlaylist.setMinWidth(USE_PREF_SIZE);
-        labelAddPlaylist.setPrefWidth(100.0);
+        labelAddPlaylist.setPrefWidth(90.0);
         labelAddPlaylist.setText("Hinzufügen");
         labelAddPlaylist.setFont(new Font(13.0));
         labelAddPlaylist.setPadding(new Insets(0.0, 0.0, 0.0, 15.0));
@@ -117,6 +118,9 @@ public class PlaylistView extends SplitPane
                 buttonAddPlaylist.getPrefWidth(),buttonAddPlaylist.getPrefHeight(),true,true)));
         buttonAddPlaylist.setContentDisplay(ContentDisplay.CENTER);
         buttonAddPlaylist.setStyle("-fx-background-color: transparent;");
+        buttonAddPlaylist.setOnAction(event -> {
+            EditDialogView editDialogView = new EditDialogView();
+        });
 
 
 
